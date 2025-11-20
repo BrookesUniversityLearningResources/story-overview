@@ -1,17 +1,20 @@
 import type { PublishedStory } from "../domain/story/publish/types";
 
 /**
- * A linear, 3-scene story where each scene has exactly one page.
+ * A 3-scene story where scenes link to scenes that don't exist (yet).
+ *
+ * The intent here is to use this story to harden the story overview component
+ * and make it resilient when given stories that don't link up.
  */
-const linearStory: PublishedStory = {
+const bustedStory: PublishedStory = {
 	author: {
 		id: 0,
 		name: "Rich",
 	},
-	id: 0,
+	id: 1,
 	createdAt: new Date(),
 	imageUrl: null,
-	title: "Linear Story",
+	title: "Busted Story",
 	scenes: [
 		{
 			id: 0,
@@ -36,8 +39,8 @@ const linearStory: PublishedStory = {
 						},
 						{
 							kind: "blockLink",
-							text: "Middle",
-							link: "middle",
+							text: "Does not exist (yet)",
+							link: "room-001", // ⬅️ points to non-existent target
 						},
 					],
 				},
@@ -50,24 +53,24 @@ const linearStory: PublishedStory = {
 			title: "Middle",
 			link: "middle",
 			pages: {
-				middle: {
+				zorbash: {
 					number: 0,
 					withinScene: 1,
-					link: "middle",
+					link: "zorbash",
 					content: [
 						{
 							kind: "blockHeading",
-							text: "Middle",
-							link: "middle",
+							text: "Zorbash",
+							link: "zorbash",
 						},
 						{
 							kind: "blockPlaintext",
-							text: "This is the middle scene.",
+							text: "This is the Zorbash scene.",
 						},
 						{
 							kind: "blockLink",
-							text: "Last",
-							link: "last",
+							text: "Still does not exist (yet)",
+							link: "room-234", // ⬅️ points to non-existent target
 						},
 					],
 				},
@@ -77,13 +80,13 @@ const linearStory: PublishedStory = {
 			id: 2,
 			image: null,
 			isOpeningScene: false,
-			title: "End",
-			link: "end",
+			title: "Chank",
+			link: "chank",
 			pages: {
-				last: {
+				chank: {
 					number: 0,
 					withinScene: 2,
-					link: "last",
+					link: "chank",
 					content: [
 						{
 							kind: "blockHeading",
@@ -92,7 +95,7 @@ const linearStory: PublishedStory = {
 						},
 						{
 							kind: "blockPlaintext",
-							text: "This is the last scene.",
+							text: "This is the Chank scene.",
 						},
 					],
 				},
@@ -101,4 +104,4 @@ const linearStory: PublishedStory = {
 	],
 };
 
-export default linearStory;
+export default bustedStory;
